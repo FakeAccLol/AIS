@@ -25,9 +25,15 @@ jobs:
     - name: Build project
       run: |
         cd build
-        cmake --build . --config Release --target ALL_BUILD -- VERBOSE=1  # Добавлен флаг VERBOSE для диагностики
+        cmake --build . --config Release --target ALL_BUILD /m /verbosity:detailed
 
     - name: Run tests
       run: |
         cd build
         ctest --output-on-failure
+
+    - name: Debug build files
+      run: |
+        cd build
+        ls -la
+        find . -name "*.cpp"  # Проверка, что исходники найдены
