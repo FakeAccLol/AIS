@@ -14,19 +14,19 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y cmake g++
-        
+        sudo apt-get install -y cmake g++ build-essential
+
     - name: Configure CMake
       run: |
         mkdir -p build
         cd build
-        cmake ..  
-      
-    - name: Build
+        cmake ..
+
+    - name: Build project
       run: |
         cd build
-        cmake --build 
-      
+        cmake --build . --config Release --target ALL_BUILD -- VERBOSE=1  # Добавлен флаг VERBOSE для диагностики
+
     - name: Run tests
       run: |
         cd build
