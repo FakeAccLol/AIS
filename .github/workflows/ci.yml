@@ -20,7 +20,7 @@ jobs:
       run: |
         mkdir -p build
         cd build
-        cmake ..  # Теперь CMake будет искать CMakeLists.txt на уровень выше
+        cmake ..  
       
     - name: Build
       run: |
