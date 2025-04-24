@@ -1,30 +1,32 @@
 #include "Simulator.h"
+#include <algorithm>  // Р”РѕР±Р°РІСЊС‚Рµ СЌС‚Сѓ СЃС‚СЂРѕРєСѓ РґР»СЏ std::sort
+#include <iostream>   
 
 void Simulator::operator()(SimulatorOptions opt) {
-	// Инициализация популяции
+	// Г€Г­ГЁГ¶ГЁГ Г«ГЁГ§Г Г¶ГЁГї ГЇГ®ГЇГіГ«ГїГ¶ГЁГЁ
 	for (size_t i = 0; i < opt.population_size; ++i)
 		population.emplace_back(opt.dimensions, opt.search_area);
 
-	// Основной цикл
+	// ГЋГ±Г­Г®ГўГ­Г®Г© Г¶ГЁГЄГ«
 	for (size_t gen = 0; gen < opt.generations; ++gen) {
-		// Сортировка по аффинности
+		// Г‘Г®Г°ГІГЁГ°Г®ГўГЄГ  ГЇГ® Г ГґГґГЁГ­Г­Г®Г±ГІГЁ
 		std::sort(population.begin(), population.end(), [](const Antibody& a, const Antibody& b) {
 			return a.affinity < b.affinity;
 			});
 
-		// Клонирование лучших антител
+		// ГЉГ«Г®Г­ГЁГ°Г®ГўГ Г­ГЁГҐ Г«ГіГ·ГёГЁГµ Г Г­ГІГЁГІГҐГ«
 		std::vector<Antibody> new_population;
 		size_t elite_size = opt.population_size / opt.shrick_rate;
 		for (size_t i = 0; i < elite_size; ++i)
 			new_population.push_back(population[i]);
 
-		// Мутация клонов
+		// ГЊГіГІГ Г¶ГЁГї ГЄГ«Г®Г­Г®Гў
 		for (size_t i = elite_size; i < opt.population_size; ++i) {
 			population[i].mutate(opt.mutation_rate);
 			new_population.push_back(population[i]);
 		}
 
-		// Обновление популяции
+		// ГЋГЎГ­Г®ГўГ«ГҐГ­ГЁГҐ ГЇГ®ГЇГіГ«ГїГ¶ГЁГЁ
 		population = std::move(new_population);
 
 		printBest(gen, opt.dimensions);
