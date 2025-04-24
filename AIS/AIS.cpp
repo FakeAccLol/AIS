@@ -13,13 +13,10 @@
 
 
 int main() {
-    size_t population_size = 1000;
-    size_t dimensions = 2;
-    size_t generations = 1000;
-    double mutation_rate = 5;
-    double shrick_rate = 100;
     Simulator sim;
-    sim(population_size, dimensions, generations, mutation_rate, shrick_rate);
+    Simulator::SimulatorOptions opt;
+    opt.generations = 100;
+    sim(opt);
 
     return 0;
 }
