@@ -37,3 +37,10 @@ jobs:
         cd build
         ls -la
         find . -name "*.cpp"  # Проверка, что исходники найдены
+
+    - name: Debug CMake
+      run: |
+        cd build
+        cmake --graphviz=dependencies.dot .
+        dot -Tpng dependencies.dot -o dependencies.png
+        ls -la
