@@ -8,18 +8,21 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Подключаем Google Test
 add_subdirectory(googletest)
 
+# Указываем путь к исходным файлам
+set(SOURCE_DIR AIS)
+
 # Основная программа
 add_executable(AIS_main
-    AIS.cpp
-    Antibody.cpp
-    Simulator.cpp
+    ${SOURCE_DIR}/AIS.cpp
+    ${SOURCE_DIR}/Antibody.cpp
+    ${SOURCE_DIR}/Simulator.cpp
 )
 
 # Тестовый исполняемый файл
 add_executable(AIS_tests
-    AIS_Tests.cpp  # Обратите внимание на правильное имя файла (без пробела)
-    Antibody.cpp
-    Simulator.cpp
+    ${SOURCE_DIR}/AIS_Tests.cpp
+    ${SOURCE_DIR}/Antibody.cpp
+    ${SOURCE_DIR}/Simulator.cpp
 )
 
 # Линковка библиотек
