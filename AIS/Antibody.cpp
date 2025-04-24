@@ -11,7 +11,7 @@ double Antibody::griewank(const std::vector<double>& x) {
 			}
 		);
 }
-
+// Определяем без значения по умолчанию тута
 Antibody::Antibody(size_t dim, std::pair<double, double> limits) : position(dim), gen(std::random_device()()) {
 	std::uniform_real_distribution<> dis(limits.first, limits.second);
 
