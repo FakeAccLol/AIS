@@ -2,6 +2,7 @@
 #include "Antibody.h"
 #include <iostream>
 #include <vector>  
+#include <algorithm>   // Для std::sort (если используется в заголовке)
 
 class Simulator
 {
