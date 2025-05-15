@@ -1,6 +1,12 @@
 cmake_minimum_required(VERSION 3.12)
 project(AIS_ImmuneSystem)
+include(FetchContent) #Изменения
 
+FetchContent_Declare( #Изменения 
+  googletest
+  URL https://github.com/google/googletest/archive/refs/heads/main.zip
+)
+FetchContent_MakeAvailable(googletest)
 #Все исходники 
 file(GLOB SOURCES "AIS/*.cpp")
 # Настройка стандарта C++
