@@ -1,7 +1,7 @@
 #pragma once
 #include <random>
 #include <numeric>
-
+#include <functional>
 
 class Antibody
 {
@@ -10,6 +10,9 @@ private:
 
 	// Функция Гриванка
 	double griewank(const std::vector<double>& x);
+	double stibtaig(const std::vector<double>& x);
+
+	std::function<double(const std::vector<double>& x)> foo;
 
 public:
 	std::vector<double> position;

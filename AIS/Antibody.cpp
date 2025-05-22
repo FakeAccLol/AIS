@@ -11,6 +11,14 @@ double Antibody::griewank(const std::vector<double>& x) {
 			}
 		);
 }
+
+double Antibody::stibtaig(const std::vector<double>& x) {
+	return std::accumulate(x.begin(), x.end(), 0.0,
+		[](double acc, double val) {
+			return acc + (std::pow(val, 4) - 16 * std::pow(val, 2) + 5 * val);
+		}) / 2.0;
+}
+
 // Определяем без значения по умолчанию тута
 Antibody::Antibody(size_t dim, std::pair<double, double> limits) : position(dim), gen(std::random_device()()) {
 	std::uniform_real_distribution<> dis(limits.first, limits.second);
@@ -18,7 +26,7 @@ Antibody::Antibody(size_t dim, std::pair<double, double> limits) : position(dim)
 	for (auto& x : position)
 		x = dis(gen);
 
-	affinity = griewank(position);
+	affinity = stibtaig(position);
 }
 
 double Antibody::operator()(double rate) {
@@ -33,10 +41,10 @@ void Antibody::mutate(double rate) {
 	for (auto& x : position)
 		x += dis(gen);
 
-	affinity = griewank(position);
+	affinity = stibtaig(position);
 }
 
 
 double Antibody::call_foo(const std::vector<double>& x) {
-	return griewank(x);
+	return stibtaig(x);
 }

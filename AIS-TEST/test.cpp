@@ -73,9 +73,12 @@ TEST(AntibodyTest, FunctionCallOperator) {
 // Тесты для класса Simulator
 TEST(SimulatorTest, PopulationInitialization) {
     Simulator::SimulatorOptions opt;
-    opt.population_size = 100;
+    opt.population_size = 1000;
     opt.dimensions = 2;
     opt.search_area = { -15.0, 15.0 };
+    opt.shrick_rate = 100;
+    opt.generations = 1000;
+    opt.mutation_rate = 2;
 
     Simulator simulator;
     simulator(opt);
