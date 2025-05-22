@@ -35,3 +35,8 @@ void Antibody::mutate(double rate) {
 
 	affinity = griewank(position);
 }
+
+
+double Antibody::call_foo(const std::vector<double>& x) {
+	return griewank(x);
+}

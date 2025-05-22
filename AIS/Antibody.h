@@ -23,6 +23,8 @@ public:
 
 	// Just Mutation
 	void mutate(double rate);
+
+	double call_foo(const std::vector<double>& x);
 };
 
 

@@ -1,52 +1,55 @@
-#include "gtest/gtest.h"
-#include "Antibody.h"
-#include "Simulator.h"
+#include "pch.h"
+#include "../AIS/Antibody.h"
+#include "../AIS/Antibody.cpp"
+#include "../AIS/Simulator.h"
+#include "../AIS/Simulator.cpp"
 #include <vector>
 #include <algorithm>
 
-// РўРµСЃС‚С‹ РґР»СЏ РєР»Р°СЃСЃР° Antibody
+// Тесты для класса Antibody
 TEST(AntibodyTest, ConstructorInitializesCorrectly) {
     const size_t dimensions = 3;
-    std::pair<double, double> limits = {-10.0, 10.0};
+    std::pair<double, double> limits = { -10.0, 10.0 };
     Antibody antibody(dimensions, limits);
-    
-    // РџСЂРѕРІРµСЂСЏРµРј РёРЅРёС†РёР°Р»РёР·Р°С†РёСЋ РїРѕР·РёС†РёРё
+
+    // Проверяем инициализацию позиции
     EXPECT_EQ(antibody.position.size(), dimensions);
-    
-    // РџСЂРѕРІРµСЂСЏРµРј РіСЂР°РЅРёС†С‹ Р·РЅР°С‡РµРЅРёР№
+
+    // Проверяем границы значений
     for (const auto& coord : antibody.position) {
         EXPECT_GE(coord, limits.first);
         EXPECT_LE(coord, limits.second);
     }
-    
-    // РџСЂРѕРІРµСЂСЏРµРј СЂР°СЃС‡РµС‚ Р°С„С„РёРЅРЅРѕСЃС‚Рё
+
+    // Проверяем расчет аффинности
     EXPECT_GE(antibody.affinity, 0.0);
 }
 
 TEST(AntibodyTest, GriewankFunctionCalculation) {
-    std::vector<double> test_point1 = {0.0, 0.0};
-    EXPECT_DOUBLE_EQ(Antibody::griewank(test_point1), 0.0);
-    
-    std::vector<double> test_point2 = {1.0, 1.0};
-    double expected_value = 1 + (1+1)/4000.0 - cos(1.0)*cos(1.0/sqrt(2.0));
-    EXPECT_DOUBLE_EQ(Antibody::griewank(test_point2), expected_value);
+    std::vector<double> test_point1 = { 0.0, 0.0 };
+    Antibody subj(2);
+    EXPECT_DOUBLE_EQ(subj.call_foo(test_point1), 0.0);
+
+    std::vector<double> test_point2 = { 1.0, 1.0 };
+    double expected_value = 1 + (1 + 1) / 4000.0 - cos(1.0) * cos(1.0 / sqrt(2.0));
+    EXPECT_DOUBLE_EQ(subj.call_foo(test_point2), expected_value);
 }
 
 TEST(AntibodyTest, MutationChangesPosition) {
     const size_t dimensions = 2;
-    Antibody antibody(dimensions, {-5.0, 5.0});
+    Antibody antibody(dimensions, { -5.0, 5.0 });
     std::vector<double> original_position = antibody.position;
     double original_affinity = antibody.affinity;
-    
-    antibody.mutate(0.5); // РњСѓС‚Р°С†РёСЏ СЃ РєРѕСЌС„С„РёС†РёРµРЅС‚РѕРј 0.5
-    
-    // РџСЂРѕРІРµСЂСЏРµРј РёР·РјРµРЅРµРЅРёСЏ РїРѕР·РёС†РёРё
+
+    antibody.mutate(0.5); // Мутация с коэффициентом 0.5
+
+    // Проверяем изменения позиции
     EXPECT_NE(antibody.position, original_position);
-    
-    // РџСЂРѕРІРµСЂСЏРµРј РїРµСЂРµСЃС‡РµС‚ Р°С„С„РёРЅРЅРѕСЃС‚Рё
+
+    // Проверяем пересчет аффинности
     EXPECT_NE(antibody.affinity, original_affinity);
-    
-    // РџСЂРѕРІРµСЂСЏРµРј РґРёР°РїР°Р·РѕРЅ РёР·РјРµРЅРµРЅРёР№
+
+    // Проверяем диапазон изменений
     for (size_t i = 0; i < dimensions; ++i) {
         EXPECT_NEAR(antibody.position[i], original_position[i], 0.5);
     }
@@ -54,39 +57,39 @@ TEST(AntibodyTest, MutationChangesPosition) {
 
 TEST(AntibodyTest, FunctionCallOperator) {
     const size_t dimensions = 2;
-    Antibody antibody(dimensions, {-1.0, 1.0});
+    Antibody antibody(dimensions, { -1.0, 1.0 });
     double original_affinity = antibody.affinity;
-    
-    // РСЃРїРѕР»СЊР·СѓРµРј РѕРїРµСЂР°С‚РѕСЂ () РґР»СЏ РјСѓС‚Р°С†РёРё Рё РїРѕР»СѓС‡РµРЅРёСЏ Р°С„С„РёРЅРЅРѕСЃС‚Рё
+
+    // Используем оператор () для мутации и получения аффинности
     double new_affinity = antibody(0.1);
-    
-    // РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ Р°С„С„РёРЅРЅРѕСЃС‚СЊ РёР·РјРµРЅРёР»Р°СЃСЊ
+
+    // Проверяем, что аффинность изменилась
     EXPECT_NE(new_affinity, original_affinity);
-    
-    // РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ operator() РІРѕР·РІСЂР°С‰Р°РµС‚ С‚РµРєСѓС‰СѓСЋ Р°С„С„РёРЅРЅРѕСЃС‚СЊ
+
+    // Проверяем, что operator() возвращает текущую аффинность
     EXPECT_DOUBLE_EQ(new_affinity, antibody.affinity);
 }
 
-// РўРµСЃС‚С‹ РґР»СЏ РєР»Р°СЃСЃР° Simulator
+// Тесты для класса Simulator
 TEST(SimulatorTest, PopulationInitialization) {
     Simulator::SimulatorOptions opt;
     opt.population_size = 100;
     opt.dimensions = 2;
-    opt.search_area = {-15.0, 15.0};
-    
+    opt.search_area = { -15.0, 15.0 };
+
     Simulator simulator;
     simulator(opt);
-    
+
     const auto& population = simulator.getPopulation();
-    
-    // РџСЂРѕРІРµСЂСЏРµРј СЂР°Р·РјРµСЂ РїРѕРїСѓР»СЏС†РёРё
+
+    // Проверяем размер популяции
     EXPECT_EQ(population.size(), opt.population_size);
-    
-    // РџСЂРѕРІРµСЂСЏРµРј СЂР°Р·РјРµСЂРЅРѕСЃС‚СЊ РєР°Р¶РґРѕРіРѕ Р°РЅС‚РёС‚РµР»Р°
+
+    // Проверяем размерность каждого антитела
     for (const auto& antibody : population) {
         EXPECT_EQ(antibody.position.size(), opt.dimensions);
-        
-        // РџСЂРѕРІРµСЂСЏРµРј РіСЂР°РЅРёС†С‹ Р·РЅР°С‡РµРЅРёР№
+
+        // Проверяем границы значений
         for (const auto& coord : antibody.position) {
             EXPECT_GE(coord, opt.search_area.first);
             EXPECT_LE(coord, opt.search_area.second);
@@ -97,23 +100,23 @@ TEST(SimulatorTest, PopulationInitialization) {
 TEST(SimulatorTest, PopulationSorting) {
     Simulator simulator;
     auto& population = const_cast<std::vector<Antibody>&>(simulator.getPopulation());
-    
-    // РЎРѕР·РґР°РµРј С‚РµСЃС‚РѕРІС‹Рµ Р°РЅС‚РёС‚РµР»Р°
-    population.emplace_back(2, {-1.0, 1.0});
-    population.emplace_back(2, {-1.0, 1.0});
-    population.emplace_back(2, {-1.0, 1.0});
-    
-    // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј С‚РµСЃС‚РѕРІС‹Рµ Р°С„С„РёРЅРЅРѕСЃС‚Рё
+
+    // Создаем тестовые антитела
+    population.emplace_back(2, std::make_pair(-1.0, 1.0));
+    population.emplace_back(2, std::make_pair(-1.0, 1.0));
+    population.emplace_back(2, std::make_pair(-1.0, 1.0));
+
+    // Устанавливаем тестовые аффинности
     population[0].affinity = 5.0;
     population[1].affinity = 3.0;
     population[2].affinity = 1.0;
-    
-    // РЎРѕСЂС‚РёСЂСѓРµРј
+
+    // Сортируем
     std::sort(population.begin(), population.end(), [](const Antibody& a, const Antibody& b) {
         return a.affinity < b.affinity;
-    });
-    
-    // РџСЂРѕРІРµСЂСЏРµРј РїРѕСЂСЏРґРѕРє СЃРѕСЂС‚РёСЂРѕРІРєРё
+        });
+
+    // Проверяем порядок сортировки
     EXPECT_DOUBLE_EQ(population[0].affinity, 1.0);
     EXPECT_DOUBLE_EQ(population[1].affinity, 3.0);
     EXPECT_DOUBLE_EQ(population[2].affinity, 5.0);
@@ -124,30 +127,26 @@ TEST(SimulatorTest, FullAlgorithmRunImprovesSolution) {
     Simulator::SimulatorOptions opt;
     opt.population_size = 50;
     opt.dimensions = 2;
-    opt.generations = 5;  // РЈРјРµРЅСЊС€РµРЅРѕ РґР»СЏ Р±С‹СЃС‚СЂРѕРіРѕ С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ
+    opt.generations = 5;  // Уменьшено для быстрого тестирования
     opt.mutation_rate = 1.0;
     opt.shrick_rate = 10;
-    opt.search_area = {-10.0, 10.0};
-    
-    // Р—Р°РїСѓСЃРєР°РµРј Р°Р»РіРѕСЂРёС‚Рј
+    opt.search_area = { -10.0, 10.0 };
+
+    // Запускаем алгоритм
     simulator(opt);
-    
+
     const auto& population = simulator.getPopulation();
-    
-    // РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ РїРѕРїСѓР»СЏС†РёСЏ РЅРµ РїСѓСЃС‚Р°
+
+    // Проверяем, что популяция не пуста
     ASSERT_FALSE(population.empty());
-    
-    // РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ Р»СѓС‡С€РµРµ СЂРµС€РµРЅРёРµ РёРјРµРµС‚ СЂР°Р·СѓРјРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ Р°С„С„РёРЅРЅРѕСЃС‚Рё
-    EXPECT_LT(population[0].affinity, 1.0); // РћР¶РёРґР°РµРј, С‡С‚Рѕ РЅР°Р№РґРµРЅРѕ СЂРµС€РµРЅРёРµ Р»СѓС‡С€Рµ 1.0
-    
-    // РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ РєРѕРѕСЂРґРёРЅР°С‚С‹ РІ Р·Р°РґР°РЅРЅС‹С… РїСЂРµРґРµР»Р°С…
+
+    // Проверяем, что лучшее решение имеет разумное значение аффинности
+    EXPECT_LT(population[0].affinity, 1.0); // Ожидаем, что найдено решение лучше 1.0
+
+    // Проверяем, что координаты в заданных пределах
     for (const auto& coord : population[0].position) {
         EXPECT_GE(coord, opt.search_area.first);
         EXPECT_LE(coord, opt.search_area.second);
     }
 }
 
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}

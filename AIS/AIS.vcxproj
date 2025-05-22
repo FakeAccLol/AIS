@@ -54,9 +54,10 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <PropertyGroup>
-    <GoogleTestDir>$(SolutionDir)packages\googletest</GoogleTestDir> <!-- Или ваш путь к gtest -->
-  </PropertyGroup> <!-- ИЗМЕНЕНИЯ -->
-
+    <GoogleTestDir>$(SolutionDir)packages\googletest</GoogleTestDir>
+    <!-- Или ваш путь к gtest -->
+  </PropertyGroup>
+  <!-- ИЗМЕНЕНИЯ -->
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -74,7 +75,6 @@
       <AdditionalDependencies>gtest.lib;gtest_main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="Shared">
@@ -126,7 +126,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -153,7 +154,7 @@
     <ClCompile Include="AIS.cpp" />
     <ClCompile Include="Antibody.cpp" />
     <ClCompile Include="Simulator.cpp" />
-    <ClCompile Include="AIS_Tests.cpp" /> <!-- ИЗМЕНЕНИЯ -->
+    <!-- ИЗМЕНЕНИЯ -->
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Antibody.h" />
