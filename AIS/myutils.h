@@ -19,3 +19,8 @@ namespace gray
 	int grayToInt(int gray);
 }
 
+namespace numpy
+{
+	vector<double> linspace(double start, double end, int num);
+	vector<double> logspace(double start, double end, int num);
+}

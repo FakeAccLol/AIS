@@ -33,48 +33,43 @@ int gray::grayToInt(int gray) {
     }
     return num;
 }
-// double functions::griewank(vector<double> x)
-// {
-// 	return 1 + std::inner_product(x.begin(), x.end(), x.begin(), 0) / 4000.0 -
-// 		// Prod
-// 		std::accumulate(x.begin(), x.end(), 1.0,
-// 			[i = 0](double acc, double x) mutable {
-// 				double result = cos(x / sqrt(++i));
-// 				return acc * result;
-// 			}
-// 		);
-// }
 
-// double functions::stibtaig(vector<double> x)
-// {
-// 	return std::accumulate(x.begin(), x.end(), 0.0,
-// 		[](double acc, double val) {
-// 			return acc + (std::pow(val, 4) - 16 * std::pow(val, 2) + 5 * val);
-// 		}) / 2.0;
-// }
+vector<double> numpy::linspace(double start, double end, int num)
+{
+    if (num < 2)
+        throw std::exception();
 
-// int gray::intToGray(int num) {
-// 	string binary = std::bitset<32>(num).to_string();
+    std::vector<double> points;
 
-// 	size_t first_one = binary.find_first_not_of('0');
-// 	if (first_one != string::npos)
-// 		binary = binary.substr(first_one);
+    double step = (end - start) / (num - 1);
 
-// 	string gray;
-// 	gray += binary[0];
+    points.push_back(start);
+    for (int i = 1; i < num - 1; i++)
+        points.push_back(start + i * step);
+    points.push_back(end);
 
-// 	for (size_t i = 1; i < binary.size(); ++i)
-// 		gray += (binary[i - 1] ^ binary[i]);
-// 	return stoi(gray);
-// }
+    return points;
+}
 
-// int gray::grayToInt(int gray) {
-// 	int result = 0;
-// 	string binary = std::bitset<32>(gray).to_string();
-// 	result = (binary[0] - '0');
+vector<double> numpy::logspace(double start, double end, int num)
+{
+    // Проверка корректности входных данных
+    if (num < 2 || start < 0)
+        throw std::exception();
 
-// 	for (size_t i = 1; i < binary.size(); ++i)
-// 		result = result * 2 + (result ^ (binary[i] - '0'));
+    std::vector<double> points;
 
-// 	return result;
-// }
+    double logStart = std::log10(start);
+    double logEnd = std::log10(end);
+
+    double step = (logEnd - logStart) / (num - 1);
+
+    points.push_back(start);
+
+    for (int i = 1; i < num - 1;)
+        points.push_back(std::pow(10, logStart + i++ * step));
+
+    points.push_back(end);
+
+    return points;
+}
