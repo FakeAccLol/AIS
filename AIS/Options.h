@@ -3,7 +3,6 @@
 
 using std::vector;
 using std::pair;
-using ushort = unsigned short;
 
 class Options
 {
@@ -11,7 +10,7 @@ public:
     size_t population_size;
     size_t dimensions;
     size_t generations;
-    ushort mutation_rate; // from 1 to 65535
+    short mutation_rate; // from 1 to 32000
     double shrick_rate;
     vector<pair<double, double>> search_area;
     Options(size_t population_size = 1000, size_t dimensions = 2, size_t generations = 1000,

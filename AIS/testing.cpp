@@ -39,7 +39,7 @@ void testing::testGenAmount(std::unique_ptr<AIS> method)
 
 void testing::testMutationRate(std::unique_ptr<AIS> method)
 {
-	vector<size_t> numbers = { 100, 1000, 5000, 15000, 30000, 60000 };
+	vector<size_t> numbers = { 100, 500, 1000, 5000, 15000, 30000 };
 	for (size_t& mut_rate : numbers) {
 		Options opt(5000, 2, 1000, mut_rate, 100, { {-20, 20}, {-20, 20} });
 		(*method)(opt);
