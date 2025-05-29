@@ -13,103 +13,112 @@
 
 using namespace std::chrono;
 
-vector<double> testing::testPopulationSize(std::unique_ptr<AIS> method)
+testing::Return testing::testPopulationSize(std::unique_ptr<AIS> method)
 {
+    testing::Return returninfo;
     vector<size_t> numbers = { 100, 1000, 10000, 100000, 1000000 };
     vector<double> timings;
-
+    Options opt(1000, 2, 1000, 100, 100, 10, { {-20, 20}, {-20, 20} });
     for (size_t& pop_size : numbers) {
-        Options opt(pop_size, 2, 1000, 100, 100, { {-20, 20}, {-20, 20} });
+
+        opt.population_size = pop_size;
+
         (*method)(opt);
 
         auto start = high_resolution_clock::now();
         method->run();
         auto end = high_resolution_clock::now();
 
-        method->calls; // нужно ещё это
-        method->info; // и это
-
-        timings.push_back(duration<double>(end - start).count());
+        returninfo.timeStamps.push_back(duration<double>(end - start).count());
+        returninfo.calls.push_back(method->calls);
+        returninfo.info.push_back(method->info);
     }
-
-    return timings;
+    return returninfo;
 }
 
-vector<double> testing::testDimSize(std::unique_ptr<AIS> method)
+testing::Return testing::testDimSize(std::unique_ptr<AIS> method)
 {
+    testing::Return returninfo;
     vector<size_t> numbers = { 2, 5, 10, 15, 20 };
     vector<double> timings;
-
+    Options opt(1000, 2, 1000, 100, 100, 10, { {-20, 20}, {-20, 20} });
     for (size_t& dim_size : numbers) {
         vector<pair<double, double>> bounds;
         for (size_t i = 0; i < dim_size; ++i)
             bounds.push_back({ -20, 20 });
-        Options opt(5000, dim_size, 1000, 100, 100, bounds);
+        opt.search_area = bounds;
         (*method)(opt);
 
         auto start = high_resolution_clock::now();
         method->run();
         auto end = high_resolution_clock::now();
 
-        timings.push_back(duration<double>(end - start).count());
+        returninfo.timeStamps.push_back(duration<double>(end - start).count());
+        returninfo.calls.push_back(method->calls);
+        returninfo.info.push_back(method->info);
     }
-
-    return timings;
+    return returninfo;
 }
 
-vector<double> testing::testGenAmount(std::unique_ptr<AIS> method)
+testing::Return testing::testGenAmount(std::unique_ptr<AIS> method)
 {
+    testing::Return returninfo;
     vector<size_t> numbers = { 100, 1000, 10000, 100000, 1000000 };
     vector<double> timings;
-
+    Options opt(1000, 2, 1000, 100, 100, 10, { {-20, 20}, {-20, 20} });
     for (size_t& gens : numbers) {
-        Options opt(5000, 2, gens, 100, 100, { {-20, 20}, {-20, 20} });
+        opt.generations = gens;
         (*method)(opt);
 
         auto start = high_resolution_clock::now();
         method->run();
         auto end = high_resolution_clock::now();
 
-        timings.push_back(duration<double>(end - start).count());
+        returninfo.timeStamps.push_back(duration<double>(end - start).count());
+        returninfo.calls.push_back(method->calls);
+        returninfo.info.push_back(method->info);
     }
-
-    return timings;
+    return returninfo;
 }
 
-vector<double> testing::testMutationRate(std::unique_ptr<AIS> method)
+testing::Return testing::testMutationRate(std::unique_ptr<AIS> method)
 {
+    testing::Return returninfo;
     vector<size_t> numbers = { 100, 1000, 5000, 15000, 30000, 60000 };
     vector<double> timings;
-
+    Options opt(1000, 2, 1000, 100, 100, 10, { {-20, 20}, {-20, 20} });
     for (size_t& mut_rate : numbers) {
-        Options opt(5000, 2, 1000, mut_rate, 100, { {-20, 20}, {-20, 20} });
+        opt.mutation_rate = mut_rate;
         (*method)(opt);
 
         auto start = high_resolution_clock::now();
         method->run();
         auto end = high_resolution_clock::now();
 
-        timings.push_back(duration<double>(end - start).count());
+        returninfo.timeStamps.push_back(duration<double>(end - start).count());
+        returninfo.calls.push_back(method->calls);
+        returninfo.info.push_back(method->info);
     }
-
-    return timings;
+    return returninfo;
 }
 
-vector<double> testing::testShrinkRate(std::unique_ptr<AIS> method)
+testing::Return testing::testShrinkRate(std::unique_ptr<AIS> method)
 {
+    testing::Return returninfo;
     vector<double> numbers = { 10, 50, 100, 500, 1000 };
     vector<double> timings;
-
+    Options opt(1000, 2, 1000, 100, 100, 10, { {-20, 20}, {-20, 20} });
     for (double& shrink_rate : numbers) {
-        Options opt(5000, 2, 1000, 100, shrink_rate, { {-20, 20}, {-20, 20} });
+        opt.shrick_rate = shrink_rate;
         (*method)(opt);
 
         auto start = high_resolution_clock::now();
         method->run();
         auto end = high_resolution_clock::now();
 
-        timings.push_back(duration<double>(end - start).count());
+        returninfo.timeStamps.push_back(duration<double>(end - start).count());
+        returninfo.calls.push_back(method->calls);
+        returninfo.info.push_back(method->info);
     }
-
-    return timings;
+    return returninfo;
 }

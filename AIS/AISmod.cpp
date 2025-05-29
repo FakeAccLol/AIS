@@ -18,6 +18,9 @@ void AISmod::run()
 			return a->affinity < b->affinity;
 			});
 
+		if (population[0]->affinity < params.eps)
+			break;
+
 		// Save best and mutate
 		std::vector<std::unique_ptr<Cell>> new_population;
 		size_t elite_size = params.population_size / params.shrick_rate;
