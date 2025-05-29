@@ -1,10 +1,11 @@
 #pragma once
+
 #include "AIS.h"
 class AISmod :
     public AIS
 {
 public:
-    AISmod();
+    AISmod(Options opt);
     void run();
 };
 

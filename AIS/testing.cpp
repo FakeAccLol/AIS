@@ -11,10 +11,9 @@
     Кол-во вызовов
 */
 
-using namespace std;
 using namespace std::chrono;
 
-std::vector<double> testing::testPopulationSize(std::unique_ptr<AIS> method)
+vector<double> testing::testPopulationSize(std::unique_ptr<AIS> method)
 {
     vector<size_t> numbers = { 100, 1000, 10000, 100000, 1000000 };
     vector<double> timings;
@@ -27,19 +26,25 @@ std::vector<double> testing::testPopulationSize(std::unique_ptr<AIS> method)
         method->run();
         auto end = high_resolution_clock::now();
 
+        method->calls; // нужно ещё это
+        method->info; // и это
+
         timings.push_back(duration<double>(end - start).count());
     }
 
     return timings;
 }
 
-std::vector<double> testing::testDimSize(std::unique_ptr<AIS> method)
+vector<double> testing::testDimSize(std::unique_ptr<AIS> method)
 {
     vector<size_t> numbers = { 2, 5, 10, 15, 20 };
     vector<double> timings;
 
     for (size_t& dim_size : numbers) {
-        Options opt(5000, dim_size, 1000, 100, 100, { {-20, 20}, {-20, 20} });
+        vector<pair<double, double>> bounds;
+        for (size_t i = 0; i < dim_size; ++i)
+            bounds.push_back({ -20, 20 });
+        Options opt(5000, dim_size, 1000, 100, 100, bounds);
         (*method)(opt);
 
         auto start = high_resolution_clock::now();
@@ -52,7 +57,7 @@ std::vector<double> testing::testDimSize(std::unique_ptr<AIS> method)
     return timings;
 }
 
-std::vector<double> testing::testGenAmount(std::unique_ptr<AIS> method)
+vector<double> testing::testGenAmount(std::unique_ptr<AIS> method)
 {
     vector<size_t> numbers = { 100, 1000, 10000, 100000, 1000000 };
     vector<double> timings;
@@ -71,7 +76,7 @@ std::vector<double> testing::testGenAmount(std::unique_ptr<AIS> method)
     return timings;
 }
 
-std::vector<double> testing::testMutationRate(std::unique_ptr<AIS> method)
+vector<double> testing::testMutationRate(std::unique_ptr<AIS> method)
 {
     vector<size_t> numbers = { 100, 1000, 5000, 15000, 30000, 60000 };
     vector<double> timings;
@@ -90,7 +95,7 @@ std::vector<double> testing::testMutationRate(std::unique_ptr<AIS> method)
     return timings;
 }
 
-std::vector<double> testing::testShrinkRate(std::unique_ptr<AIS> method)
+vector<double> testing::testShrinkRate(std::unique_ptr<AIS> method)
 {
     vector<double> numbers = { 10, 50, 100, 500, 1000 };
     vector<double> timings;

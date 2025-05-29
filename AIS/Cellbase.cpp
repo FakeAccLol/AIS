@@ -1,7 +1,8 @@
 #include "Cellbase.h"
 #include "myutils.h"
 
-Cellbase::Cellbase(size_t dim, function<double(vector<double> x)> f, vector<pair<double, double>> bounds) : Cell(dim, f, bounds) {
+Cellbase::Cellbase(size_t dim, function<double(vector<double> x)> f, vector<pair<double, double>> bounds) : Cell(dim, f, bounds)
+{
 
 }
 

@@ -4,10 +4,10 @@
 
 namespace testing
 {
-	void testShrinkRate(std::unique_ptr<AIS> method);
-	void testPopulationSize(std::unique_ptr<AIS> method);
-	void testDimSize(std::unique_ptr<AIS> method);
-	void testMutationRate(std::unique_ptr<AIS> method);
-	void testGenAmount(std::unique_ptr<AIS> method);
+	vector<double> testShrinkRate(std::unique_ptr<AIS> method);
+	vector<double> testPopulationSize(std::unique_ptr<AIS> method);
+	vector<double> testDimSize(std::unique_ptr<AIS> method);
+	vector<double> testMutationRate(std::unique_ptr<AIS> method);
+	vector<double> testGenAmount(std::unique_ptr<AIS> method);
 };
 

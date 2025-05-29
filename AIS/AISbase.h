@@ -1,4 +1,5 @@
 #pragma once
+
 #include "AIS.h"
 class AISbase :
     public AIS

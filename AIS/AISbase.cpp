@@ -8,15 +8,15 @@ AISbase::AISbase(Options opt) : AIS(opt)
 
 void AISbase::run()
 {
-	// Initial population
+	/*// Initial population
 	for (size_t i = 0; i < params.population_size; ++i)
 		population.emplace_back(std::make_unique<Cellbase>(params.dimensions, foo, params.search_area));
 
 	// Run simulation
 	for (size_t gen = 0; gen < params.generations; ++gen) {
 		// Get best cells
-		std::sort(population.begin(), population.end(), [](const Cell& a, const Cell& b) {
-			return a.affinity < b.affinity;
+		std::sort(population.begin(), population.end(), [](std::unique_ptr<Cell >& a, std::unique_ptr<Cell >& b) {
+			return a->affinity < b->affinity;
 			});
 
 		// Save best
@@ -34,5 +34,7 @@ void AISbase::run()
 
 		// move them
 		population = std::move(new_population);
-	}
+		info.push_back(best);
+	}*/
+	
 }
