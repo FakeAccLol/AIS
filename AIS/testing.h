@@ -13,10 +13,10 @@ namespace testing
 		vector<vector<pair<int, double>>> info;
 	};
 
-	Return testShrinkRate(std::unique_ptr<AIS> method);
-	Return testPopulationSize(std::unique_ptr<AIS> method);
-	Return testDimSize(std::unique_ptr<AIS> method);
-	Return testMutationRate(std::unique_ptr<AIS> method);
-	Return testGenAmount(std::unique_ptr<AIS> method);
+	Return testShrinkRate(std::shared_ptr<AIS> method);
+	Return testPopulationSize(std::shared_ptr<AIS> method);
+	Return testDimSize(std::shared_ptr<AIS> method);
+	Return testMutationRate(std::shared_ptr<AIS> method);
+	Return testGenAmount(std::shared_ptr<AIS> method);
 };
 

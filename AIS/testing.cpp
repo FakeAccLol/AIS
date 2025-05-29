@@ -13,7 +13,7 @@
 
 using namespace std::chrono;
 
-testing::Return testing::testPopulationSize(std::unique_ptr<AIS> method)
+testing::Return testing::testPopulationSize(std::shared_ptr<AIS> method)
 {
     testing::Return returninfo;
     vector<size_t> numbers = { 100, 1000, 10000, 100000, 1000000 };
@@ -36,7 +36,7 @@ testing::Return testing::testPopulationSize(std::unique_ptr<AIS> method)
     return returninfo;
 }
 
-testing::Return testing::testDimSize(std::unique_ptr<AIS> method)
+testing::Return testing::testDimSize(std::shared_ptr<AIS> method)
 {
     testing::Return returninfo;
     vector<size_t> numbers = { 2, 5, 10, 15, 20 };
@@ -47,6 +47,7 @@ testing::Return testing::testDimSize(std::unique_ptr<AIS> method)
         for (size_t i = 0; i < dim_size; ++i)
             bounds.push_back({ -20, 20 });
         opt.search_area = bounds;
+        opt.dimensions = dim_size;
         method->setOpt(opt);
 
         auto start = high_resolution_clock::now();
@@ -60,7 +61,7 @@ testing::Return testing::testDimSize(std::unique_ptr<AIS> method)
     return returninfo;
 }
 
-testing::Return testing::testGenAmount(std::unique_ptr<AIS> method)
+testing::Return testing::testGenAmount(std::shared_ptr<AIS> method)
 {
     testing::Return returninfo;
     vector<size_t> numbers = { 100, 1000, 10000, 100000, 1000000 };
@@ -81,13 +82,13 @@ testing::Return testing::testGenAmount(std::unique_ptr<AIS> method)
     return returninfo;
 }
 
-testing::Return testing::testMutationRate(std::unique_ptr<AIS> method)
+testing::Return testing::testMutationRate(std::shared_ptr<AIS> method)
 {
     testing::Return returninfo;
     vector<size_t> numbers = { 100, 1000, 5000, 15000, 30000, 60000 };
     vector<double> timings;
     Options opt(1000, 2, 1000, 100, 100, 10, { {-20, 20}, {-20, 20} });
-    for (size_t& mut_rate : numbers) {
+    for (auto& mut_rate : numbers) {
         opt.mutation_rate = mut_rate;
         method->setOpt(opt);
 
@@ -102,7 +103,7 @@ testing::Return testing::testMutationRate(std::unique_ptr<AIS> method)
     return returninfo;
 }
 
-testing::Return testing::testShrinkRate(std::unique_ptr<AIS> method)
+testing::Return testing::testShrinkRate(std::shared_ptr<AIS> method)
 {
     testing::Return returninfo;
     vector<double> numbers = { 10, 50, 100, 500, 1000 };

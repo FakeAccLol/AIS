@@ -6,9 +6,6 @@ class AISbase :
 {
 public:
     AISbase(Options opt);
-    std::unique_ptr<AIS> clone() const override {
-        return std::make_unique<AISbase>(*this);
-    }
-    void run();
+    void run() override;
 };
 

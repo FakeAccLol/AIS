@@ -1,5 +1,6 @@
 #include "testing.h"
 #include "myutils.h"
+
 #include <iostream>
 #include <memory>
 #include <fstream>;
@@ -12,10 +13,10 @@ int main() {
     std::ofstream out("tests.csv");
     // Создаем объекты разных реализаций
     Options def;
-    std::vector<std::unique_ptr<AIS>> methods;
-    methods.emplace_back(std::make_unique<AISbase>(def));
-    methods.emplace_back(std::make_unique<AISmod>(def));
-    methods.emplace_back(std::make_unique<AISmod>(def));
+    std::vector<std::shared_ptr<AIS>> methods;
+    methods.emplace_back(std::make_shared<AISbase>(def));
+    methods.emplace_back(std::make_shared<AISmod>(def));
+    methods.emplace_back(std::make_shared<AISmod>(def));
     methods[0]->set_foo(functions::griewank);
     methods[1]->set_foo(functions::griewank);
     methods[2]->set_foo(functions::stibtaig);
@@ -23,7 +24,7 @@ int main() {
     // Тестируем для всех методов
     for (auto& method : methods) {
 
-        testing::Return rez1 = testing::testPopulationSize(method->clone());
+        testing::Return rez1 = testing::testPopulationSize(method);
         out << "Basic" << endl;
         out << "Time" << endl;
         for (auto& val : rez1.timeStamps)
@@ -41,7 +42,7 @@ int main() {
             out << endl;
         }
         out << endl;
-        testing::Return rez2 = testing::testDimSize(method->clone());
+        testing::Return rez2 = testing::testDimSize(method);
         out << "Basic" << endl;
         out << "Time" << endl;
         for (auto& val : rez2.timeStamps)
@@ -60,7 +61,7 @@ int main() {
         }
         out << endl;
 
-        testing::Return rez3 = testing::testGenAmount(method->clone());
+        testing::Return rez3 = testing::testGenAmount(method);
         out << "Basic" << endl;
         out << "Time" << endl;
         for (auto& val : rez3.timeStamps)
@@ -79,7 +80,7 @@ int main() {
         }
         out << endl;
 
-        testing::Return rez4 = testing::testMutationRate(method->clone());
+        testing::Return rez4 = testing::testMutationRate(method);
         out << "Basic" << endl;
         out << "Time" << endl;
         for (auto& val : rez4.timeStamps)
@@ -98,7 +99,7 @@ int main() {
         }
         out << endl;
 
-        testing::Return rez5 = testing::testShrinkRate(method->clone());
+        testing::Return rez5 = testing::testShrinkRate(method);
         out << "Basic" << endl;
         out << "Time" << endl;
         for (auto& val : rez5.timeStamps)

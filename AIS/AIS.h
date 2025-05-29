@@ -7,7 +7,6 @@ class AIS
 {
 public:
 	AIS(Options opt);
-	virtual std::unique_ptr<AIS> clone() const = 0;
 	virtual void run() = 0;
 
 	void setOpt(Options opt);
