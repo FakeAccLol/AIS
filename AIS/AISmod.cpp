@@ -6,6 +6,7 @@ AISmod::AISmod(Options opt) : AIS(opt)
 {
 }
 
+
 void AISmod::run()
 {
 	// Initial population

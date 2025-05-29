@@ -23,7 +23,7 @@ testing::Return testing::testPopulationSize(std::unique_ptr<AIS> method)
 
         opt.population_size = pop_size;
 
-        (*method)(opt);
+        method->setOpt(opt);
 
         auto start = high_resolution_clock::now();
         method->run();
@@ -47,7 +47,7 @@ testing::Return testing::testDimSize(std::unique_ptr<AIS> method)
         for (size_t i = 0; i < dim_size; ++i)
             bounds.push_back({ -20, 20 });
         opt.search_area = bounds;
-        (*method)(opt);
+        method->setOpt(opt);
 
         auto start = high_resolution_clock::now();
         method->run();
@@ -68,7 +68,7 @@ testing::Return testing::testGenAmount(std::unique_ptr<AIS> method)
     Options opt(1000, 2, 1000, 100, 100, 10, { {-20, 20}, {-20, 20} });
     for (size_t& gens : numbers) {
         opt.generations = gens;
-        (*method)(opt);
+        method->setOpt(opt);
 
         auto start = high_resolution_clock::now();
         method->run();
@@ -89,7 +89,7 @@ testing::Return testing::testMutationRate(std::unique_ptr<AIS> method)
     Options opt(1000, 2, 1000, 100, 100, 10, { {-20, 20}, {-20, 20} });
     for (size_t& mut_rate : numbers) {
         opt.mutation_rate = mut_rate;
-        (*method)(opt);
+        method->setOpt(opt);
 
         auto start = high_resolution_clock::now();
         method->run();
@@ -110,7 +110,7 @@ testing::Return testing::testShrinkRate(std::unique_ptr<AIS> method)
     Options opt(1000, 2, 1000, 100, 100, 10, { {-20, 20}, {-20, 20} });
     for (double& shrink_rate : numbers) {
         opt.shrick_rate = shrink_rate;
-        (*method)(opt);
+        method->setOpt(opt);
 
         auto start = high_resolution_clock::now();
         method->run();

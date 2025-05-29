@@ -13,9 +13,9 @@ int main() {
     // Создаем объекты разных реализаций
     Options def;
     std::vector<std::unique_ptr<AIS>> methods;
-    methods.push_back(std::make_unique<AISbase>(def));
-    methods.push_back(std::make_unique<AISmod>(def));
-    methods.push_back(std::make_unique<AISmod>(def));
+    methods.emplace_back(std::make_unique<AISbase>(def));
+    methods.emplace_back(std::make_unique<AISmod>(def));
+    methods.emplace_back(std::make_unique<AISmod>(def));
     methods[0]->set_foo(functions::griewank);
     methods[1]->set_foo(functions::griewank);
     methods[2]->set_foo(functions::stibtaig);
@@ -23,11 +23,7 @@ int main() {
     // Тестируем для всех методов
     for (auto& method : methods) {
 
-        testing::Return rez1 = testing::testPopulationSize(std::move(method));
-        testing::Return rez2 = testing::testDimSize(std::move(method));
-        testing::Return rez3 = testing::testGenAmount(std::move(method));
-        testing::Return rez4 = testing::testMutationRate(std::move(method));
-        testing::Return rez5 = testing::testShrinkRate(std::move(method));
+        testing::Return rez1 = testing::testPopulationSize(method->clone());
         out << "Basic" << endl;
         out << "Time" << endl;
         for (auto& val : rez1.timeStamps)
@@ -45,7 +41,7 @@ int main() {
             out << endl;
         }
         out << endl;
-
+        testing::Return rez2 = testing::testDimSize(method->clone());
         out << "Basic" << endl;
         out << "Time" << endl;
         for (auto& val : rez2.timeStamps)
@@ -64,6 +60,7 @@ int main() {
         }
         out << endl;
 
+        testing::Return rez3 = testing::testGenAmount(method->clone());
         out << "Basic" << endl;
         out << "Time" << endl;
         for (auto& val : rez3.timeStamps)
@@ -82,6 +79,7 @@ int main() {
         }
         out << endl;
 
+        testing::Return rez4 = testing::testMutationRate(method->clone());
         out << "Basic" << endl;
         out << "Time" << endl;
         for (auto& val : rez4.timeStamps)
@@ -100,6 +98,7 @@ int main() {
         }
         out << endl;
 
+        testing::Return rez5 = testing::testShrinkRate(method->clone());
         out << "Basic" << endl;
         out << "Time" << endl;
         for (auto& val : rez5.timeStamps)
@@ -117,6 +116,7 @@ int main() {
             out << endl;
         }
         out << endl;
+        
     }
     
     return 0;

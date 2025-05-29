@@ -4,7 +4,7 @@ AIS::AIS(Options opt) : params(opt), calls(0)
 {
 }
 
-void AIS::operator()(Options opt)
+void AIS::setOpt(Options opt)
 {
 	params = opt;
 }

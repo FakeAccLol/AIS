@@ -7,10 +7,10 @@ class AIS
 {
 public:
 	AIS(Options opt);
-
+	virtual std::unique_ptr<AIS> clone() const = 0;
 	virtual void run() = 0;
 
-	void operator()(Options opt);
+	void setOpt(Options opt);
 
 	void set_foo(function<double(vector<double>)> foo);
 
