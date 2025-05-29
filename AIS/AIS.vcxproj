@@ -159,7 +159,6 @@
     <ClCompile Include="Cellmod.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="myutils.cpp" />
-    <ClCompile Include="Options.cpp" />
     <ClCompile Include="testing.cpp" />
     <!-- ИЗМЕНЕНИЯ -->
   </ItemGroup>

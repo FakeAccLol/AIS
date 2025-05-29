@@ -6,6 +6,11 @@ Cellbase::Cellbase(size_t dim, function<double(vector<double> x)> f, vector<pair
 
 }
 
+std::unique_ptr<Cellbase> Cellbase::clone() const
+{
+	return std::make_unique<Cellbase>(*this);
+}
+
 void Cellbase::mutate(int rate)
 {
 	std::uniform_int_distribution dis(-rate, rate);

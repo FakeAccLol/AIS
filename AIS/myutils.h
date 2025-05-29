@@ -16,8 +16,6 @@ namespace functions
 namespace gray
 {
     int intToGray(int num);
-
 	int grayToInt(int gray);
-
 }
 

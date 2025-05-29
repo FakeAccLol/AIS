@@ -6,6 +6,11 @@ Cellmod::Cellmod(size_t dim, function<double(vector<double>x)> f, vector<pair<do
 
 }
 
+std::unique_ptr<Cellmod> Cellmod::clone() const
+{
+	return std::make_unique<Cellmod>(*this);
+}
+
 void Cellmod::mutate(int rate)
 {
 	std::uniform_int_distribution dis(-rate, rate);

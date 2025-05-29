@@ -19,18 +19,18 @@ void AISbase::run()
 			return a->affinity < b->affinity;
 			});
 
-		// Save best
+		// Save best and mutate
 		std::vector<std::unique_ptr<Cell>> new_population;
 		size_t elite_size = params.population_size / params.shrick_rate;
-		for (size_t i = 0; i < elite_size; ++i)
-			new_population.push_back(std::move(population[i]));
 
-		// Mutate others
-		for (size_t i = elite_size; i < params.population_size; ++i) {
-			population[i]->mutate(params.mutation_rate);
-			new_population.push_back(std::move(population[i]));
+		for (size_t i = 0; i < params.population_size - elite_size; ++i) {
+			new_population.push_back(dynamic_cast<Cellbase*>(population[i].get())->clone());
+			new_population[i]->mutate(params.mutation_rate);
 			++calls;
 		}
+
+		for (size_t i = 0; i < elite_size; ++i)
+			new_population.push_back(std::move(population[i]));
 
 		// move them
 		population = std::move(new_population);
