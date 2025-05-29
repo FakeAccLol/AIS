@@ -55,7 +55,7 @@ vector<double> numpy::logspace(double start, double end, int num)
 {
     // Проверка корректности входных данных
     if (num < 2 || start < 0)
-        throw std::exception();
+        return { 1 };
 
     std::vector<double> points;
 

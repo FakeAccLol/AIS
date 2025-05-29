@@ -8,6 +8,8 @@ AISbase::AISbase(Options opt) : AIS(opt)
 
 void AISbase::run()
 {
+	info.clear();
+	population.clear();
 	// Initial population
 	for (size_t i = 0; i < params.population_size; ++i)
 		population.emplace_back(std::make_unique<Cellbase>(params.dimensions, foo, params.search_area));
@@ -18,6 +20,12 @@ void AISbase::run()
 		std::sort(population.begin(), population.end(), [](std::unique_ptr<Cell >& a, std::unique_ptr<Cell >& b) {
 			return a->affinity < b->affinity;
 			});
+
+		if (info.size() == 0)
+			info.push_back({ gen, population[0]->affinity });
+
+		if (info[info.size() - 1].second > population[0]->affinity)
+			info.push_back({ gen, population[0]->affinity });
 
 		if (population[0]->affinity < params.eps)
 			break;
@@ -38,11 +46,7 @@ void AISbase::run()
 		// move them
 		population = std::move(new_population);
 
-		if (info.size() == 0)
-			info.push_back({ gen, population[0]->affinity });
-
-		if (info[info.size() - 1].second > population[0]->affinity)
-			info.push_back({gen, population[0]->affinity});
+		
 	}
 	
 }
