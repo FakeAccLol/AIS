@@ -13,6 +13,8 @@ std::unique_ptr<Cellbase> Cellbase::clone() const
 
 void Cellbase::mutate(int rate)
 {
+	if (rate < 0)
+		rate *= -1;
 	std::uniform_int_distribution dis(-rate, rate);
 
 	for (size_t i = 0; i < position.size(); ++i) {

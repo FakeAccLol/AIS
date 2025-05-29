@@ -88,7 +88,7 @@ testing::Return testing::testGenAmount(std::shared_ptr<AIS> method)
 testing::Return testing::testMutationRate(std::shared_ptr<AIS> method)
 {
     testing::Return returninfo;
-    vector<size_t> numbers = { 100, 1000, 5000, 15000, 30000, 60000 };
+    vector<size_t> numbers = { 100, 500, 1000, 5000, 15000, 30000 };
     vector<double> timings;
     Options opt(1000, 2, 1000, 100, 100, 10, { {-20, 20}, {-20, 20} });
     opt.eps = 0.000001;
