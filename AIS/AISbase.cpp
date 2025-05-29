@@ -6,7 +6,7 @@ AISbase::AISbase(Options opt) : AIS(opt)
 
 }
 
-void AISbase::run(function<double(vector<double>)> foo)
+void AISbase::run()
 {
 	// Initial population
 	for (size_t i = 0; i < params.population_size; ++i)

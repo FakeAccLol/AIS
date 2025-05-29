@@ -5,6 +5,6 @@ class AISbase :
 {
 public:
     AISbase(Options opt);
-    void run(function<double(vector<double>)> foo);
+    void run();
 };
 
