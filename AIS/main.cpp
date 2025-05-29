@@ -18,11 +18,11 @@ int main() {
     // Тестируем для всех методов
     for (auto& method : methods) {
 
-        testing::testPopulationSize(std::move(method));
-        testing::testDimSize(std::move(method));
-        testing::testGenAmount(std::move(method));
-        testing::testMutationRate(std::move(method));
-        testing::testShrinkRate(std::move(method));
+        testing::Return rez1 = testing::testPopulationSize(std::move(method));
+        testing::Return rez2 = testing::testDimSize(std::move(method));
+        testing::Return rez3 = testing::testGenAmount(std::move(method));
+        testing::Return rez4 = testing::testMutationRate(std::move(method));
+        testing::Return rez5 = testing::testShrinkRate(std::move(method));
     }
     
     return 0;
