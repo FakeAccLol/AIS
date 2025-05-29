@@ -152,13 +152,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AIS.cpp" />
-    <ClCompile Include="Antibody.cpp" />
-    <ClCompile Include="Simulator.cpp" />
+    <ClCompile Include="AISbase.cpp" />
+    <ClCompile Include="AISmod.cpp" />
+    <ClCompile Include="Cell.cpp" />
+    <ClCompile Include="Cellbase.cpp" />
+    <ClCompile Include="Cellmod.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="myutils.cpp" />
+    <ClCompile Include="Options.cpp" />
+    <ClCompile Include="testing.cpp" />
     <!-- ИЗМЕНЕНИЯ -->
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Antibody.h" />
-    <ClInclude Include="Simulator.h" />
+    <ClInclude Include="AIS.h" />
+    <ClInclude Include="AISbase.h" />
+    <ClInclude Include="AISmod.h" />
+    <ClInclude Include="Cell.h" />
+    <ClInclude Include="Cellbase.h" />
+    <ClInclude Include="Cellmod.h" />
+    <ClInclude Include="myutils.h" />
+    <ClInclude Include="Options.h" />
+    <ClInclude Include="testing.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
