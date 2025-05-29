@@ -15,7 +15,7 @@ namespace functions
 
 namespace gray
 {
-    int intToGray(int num);
+	unsigned int intToGray(unsigned int num);
 	int grayToInt(int gray);
 }
 

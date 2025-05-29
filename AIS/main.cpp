@@ -80,7 +80,7 @@ int main() {
         }
         out << endl;
 
-        testing::Return rez4 = testing::testMutationRate(method);
+        /*testing::Return rez4 = testing::testMutationRate(method);
         out << "MutRate" << endl;
         out << "Time" << endl;
         for (auto& val : rez4.timeStamps)
@@ -97,9 +97,9 @@ int main() {
                 out << pai.first << ';' << pai.second << endl;
             out << endl;
         }
-        out << endl;
+        out << endl;*/
 
-        testing::Return rez5 = testing::testShrinkRate(method);
+        /*testing::Return rez5 = testing::testShrinkRate(method);
         out << "ShrinkRate" << endl;
         out << "Time" << endl;
         for (auto& val : rez5.timeStamps)
@@ -116,7 +116,7 @@ int main() {
                 out << pai.first << ';' << pai.second << endl;
             out << endl;
         }
-        out << endl;
+        out << endl;*/
         
     }
     

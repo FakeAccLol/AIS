@@ -36,7 +36,7 @@ void AISmod::run()
 		for (size_t i = 0; i < elite_size; ++i)
 			new_population.push_back(dynamic_cast<Cellmod*>(population[i].get())->clone());
 		vector<double> distr = numpy::logspace(0, params.population_size - elite_size, elite_size);
-		vector<int> idistr;
+		vector<int> idistr(distr.size());
 		std::transform(distr.begin(), distr.end(), idistr.begin(),
 			[](double d) { return static_cast<int>(d); });
 		for (int i = 0; i < idistr.size(); ++i)

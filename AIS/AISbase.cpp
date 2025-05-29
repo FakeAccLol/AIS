@@ -21,6 +21,9 @@ void AISbase::run()
 			return a->affinity < b->affinity;
 			});
 
+		/*if (population[0]->affinity < 0)
+			throw __ExceptionPtrAssign;*/
+
 		if (info.size() == 0)
 			info.push_back({ gen, population[0]->affinity });
 

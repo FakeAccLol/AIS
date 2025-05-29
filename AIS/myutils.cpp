@@ -21,7 +21,7 @@ double functions::stibtaig(vector<double> x)
         }) / 2.0;
 }
 
-int gray::intToGray(int num) {
+unsigned int gray::intToGray(unsigned int num) {
     return num ^ (num >> 1);
 }
 

@@ -18,8 +18,16 @@ void Cellmod::mutate(int rate)
 	for (size_t i = 0; i < position.size(); ++i) {
 		int val = 32000 * (position[i] - bounds[i].first) / (bounds[i].second - bounds[i].first);
 		int gray = gray::intToGray(val);
-		gray += dis(gen);
+		int addval = dis(gen);
+		if (gray + addval > 32000)
+			gray = 32000;
+		if (gray + addval < 0)
+			gray = 0;
+		else
+			gray += dis(gen);
 		val = gray::grayToInt(gray);
+		if (val > 32000)
+			val = 32000;
 		position[i] = bounds[i].first + val * (bounds[i].second - bounds[i].first) / 32000;
 	}
 	affinity = foo(position);
