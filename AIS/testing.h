@@ -5,8 +5,11 @@
 namespace testing
 {
 	struct Return {
+		// сколько времени занимала оптимизация
 		vector<double> timeStamps;
+		// сколько раз вызывалась целевая функция
 		vector<size_t> calls;
+		// для каждой оптимизации то как изменялась целевая функция 
 		vector<vector<pair<int, double>>> info;
 	};
 
