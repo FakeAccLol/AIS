@@ -25,7 +25,7 @@ int main() {
     for (auto& method : methods) {
 
         testing::Return rez1 = testing::testPopulationSize(method);
-        out << "Basic" << endl;
+        out << "PopSize" << endl;
         out << "Time" << endl;
         for (auto& val : rez1.timeStamps)
             out << val << ';';
@@ -43,7 +43,7 @@ int main() {
         }
         out << endl;
         testing::Return rez2 = testing::testDimSize(method);
-        out << "Basic" << endl;
+        out << "DimSize" << endl;
         out << "Time" << endl;
         for (auto& val : rez2.timeStamps)
             out << val << ';';
@@ -62,7 +62,7 @@ int main() {
         out << endl;
 
         testing::Return rez3 = testing::testGenAmount(method);
-        out << "Basic" << endl;
+        out << "GenAmount" << endl;
         out << "Time" << endl;
         for (auto& val : rez3.timeStamps)
             out << val << ';';
@@ -81,7 +81,7 @@ int main() {
         out << endl;
 
         testing::Return rez4 = testing::testMutationRate(method);
-        out << "Basic" << endl;
+        out << "MutRate" << endl;
         out << "Time" << endl;
         for (auto& val : rez4.timeStamps)
             out << val << ';';
@@ -100,7 +100,7 @@ int main() {
         out << endl;
 
         testing::Return rez5 = testing::testShrinkRate(method);
-        out << "Basic" << endl;
+        out << "ShrinkRate" << endl;
         out << "Time" << endl;
         for (auto& val : rez5.timeStamps)
             out << val << ';';

@@ -38,7 +38,11 @@ void AISbase::run()
 		// move them
 		population = std::move(new_population);
 
-		info.push_back({gen, population[0]->affinity});
+		if (info.size() == 0)
+			info.push_back({ gen, population[0]->affinity });
+
+		if (info[info.size() - 1].second > population[0]->affinity)
+			info.push_back({gen, population[0]->affinity});
 	}
 	
 }
